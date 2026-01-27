@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram Reel Downloader</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #111;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            text-align: center;
+            background: #222;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Instagram Reel Downloader</h1>
+        <input id="url" placeholder="Paste Instagram Reel URL">
+        <br>
+        <button onclick="download()">Download</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        async function download() {
+            const url = document.getElementById("url").value;
+            const res = await fetch("/download", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({url})
+            });
+            const data = await res.json();
+            document.getElementById("result").innerHTML =
+              `<a href="${data.video}" target="_blank">Download Video</a>`;
+        }
+    </script>
+</body>
+</html>
